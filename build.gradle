@@ -11,7 +11,7 @@ application {
 }
 
 compileJava {
-    options.release = 16
+    options.release = 17
 }
 
 dependencies {
