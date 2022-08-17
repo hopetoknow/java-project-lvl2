@@ -16,6 +16,7 @@ compileJava {
 
 dependencies {
     implementation 'info.picocli:picocli:4.6.3'
+    implementation 'com.fasterxml.jackson.core:jackson-databind:2.13.3'
 }
 
 repositories {
