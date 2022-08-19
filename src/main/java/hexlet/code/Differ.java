@@ -13,47 +13,38 @@ import java.util.TreeSet;
 public class Differ {
 
     public static String generate(String filePath1, String filePath2) throws IOException {
-        String json1 = Files.readString(Paths.get(filePath1));
-        String json2 = Files.readString(Paths.get(filePath2));
+        Map<String, Object> firstJson = getJsonFromFile(filePath1);
+        Map<String, Object> secondJson = getJsonFromFile(filePath2);
 
-        ObjectMapper objectMapper = new ObjectMapper();
-
-        Map<String, Object> jsonAsMap1 = objectMapper.readValue(json1, new TypeReference<>(){});
-        Map<String, Object> jsonAsMap2 = objectMapper.readValue(json2, new TypeReference<>(){});
-
-        Set<String> keys = new TreeSet<>(jsonAsMap1.keySet());
-        keys.addAll(jsonAsMap2.keySet());
+        Set<String> keys = new TreeSet<>(firstJson.keySet());
+        keys.addAll(secondJson.keySet());
 
         StringBuilder result = new StringBuilder();
         result.append("{\n");
         for (String key: keys) {
-            if (!jsonAsMap1.containsKey(key)) {
+            if (!firstJson.containsKey(key)) {
                 result.append(" + ")
                         .append(key)
                         .append(": ")
-                        .append(jsonAsMap2.get(key));
+                        .append(secondJson.get(key));
             } else {
-                if (!jsonAsMap2.containsKey(key)) {
+                if (!secondJson.containsKey(key)) {
                     result.append(" - ")
                             .append(key)
                             .append(": ")
-                            .append(jsonAsMap1.get(key));
+                            .append(firstJson.get(key));
                 } else {
-                    if (jsonAsMap1.get(key).equals(jsonAsMap2.get(key))) {
+                    if (firstJson.get(key).equals(secondJson.get(key))) {
                         result.append("   ")
                                 .append(key)
                                 .append(": ")
-                                .append(jsonAsMap1.get(key));
+                                .append(firstJson.get(key));
                     } else {
-                        result.append(" - ")
-                                .append(key)
-                                .append(": ")
-                                .append(jsonAsMap1.get(key))
-                                .append("\n");
+                        result.append(" - ").append(key).append(": ").append(firstJson.get(key)).append("\n");
                         result.append(" + ")
                                 .append(key)
                                 .append(": ")
-                                .append(jsonAsMap2.get(key));
+                                .append(secondJson.get(key));
                     }
                 }
             }
@@ -61,5 +52,10 @@ public class Differ {
         }
         result.append("}");
         return result.toString();
+    }
+    private static Map<String, Object> getJsonFromFile(String filePath) throws IOException {
+        String jsonAsString = Files.readString(Paths.get(filePath));
+        ObjectMapper objectMapper = new ObjectMapper();
+        return objectMapper.readValue(jsonAsString, new TypeReference<>(){});
     }
 }
