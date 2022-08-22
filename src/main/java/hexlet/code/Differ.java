@@ -49,7 +49,7 @@ public class Differ {
     private static Map<String, Object> getJsonFromFile(String filePath) throws IOException {
         String jsonAsString = Files.readString(Paths.get(filePath));
         ObjectMapper objectMapper = new ObjectMapper();
-        return objectMapper.readValue(jsonAsString, new TypeReference<>(){});
+        return objectMapper.readValue(jsonAsString, new TypeReference<>() { });
     }
 
     private static void appendToResult(Map<String, Object> json, StringBuilder result, String key, String diffSign) {

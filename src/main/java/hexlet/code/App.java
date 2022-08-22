@@ -21,7 +21,7 @@ public class App implements Runnable {
     private String format = "stylish";
 
     @Override
-    public void run() {
+    public final void run() {
         try {
             System.out.println(Differ.generate(filepath1, filepath2));
         } catch (IOException e) {
