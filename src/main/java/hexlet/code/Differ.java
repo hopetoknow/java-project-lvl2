@@ -12,6 +12,10 @@ import java.util.TreeSet;
 
 public class Differ {
 
+    private static final String PLUS = " + ";
+    private static final String MINUS = " - ";
+    private static final String SPACE = "   ";
+
     public static String generate(String filePath1, String filePath2) throws IOException {
         Map<String, Object> firstJson = getJsonFromFile(filePath1);
         Map<String, Object> secondJson = getJsonFromFile(filePath2);
@@ -23,28 +27,17 @@ public class Differ {
         result.append("{\n");
         for (String key: keys) {
             if (!firstJson.containsKey(key)) {
-                result.append(" + ")
-                        .append(key)
-                        .append(": ")
-                        .append(secondJson.get(key));
+                appendToResult(secondJson, result, key, PLUS);
             } else {
                 if (!secondJson.containsKey(key)) {
-                    result.append(" - ")
-                            .append(key)
-                            .append(": ")
-                            .append(firstJson.get(key));
+                    appendToResult(firstJson, result, key, MINUS);
                 } else {
                     if (firstJson.get(key).equals(secondJson.get(key))) {
-                        result.append("   ")
-                                .append(key)
-                                .append(": ")
-                                .append(firstJson.get(key));
+                        appendToResult(firstJson, result, key, SPACE);
                     } else {
-                        result.append(" - ").append(key).append(": ").append(firstJson.get(key)).append("\n");
-                        result.append(" + ")
-                                .append(key)
-                                .append(": ")
-                                .append(secondJson.get(key));
+                        appendToResult(firstJson, result, key, MINUS);
+                        result.append("\n");
+                        appendToResult(secondJson, result, key, PLUS);
                     }
                 }
             }
@@ -57,5 +50,12 @@ public class Differ {
         String jsonAsString = Files.readString(Paths.get(filePath));
         ObjectMapper objectMapper = new ObjectMapper();
         return objectMapper.readValue(jsonAsString, new TypeReference<>(){});
+    }
+
+    private static void appendToResult(Map<String, Object> json, StringBuilder result, String key, String diffSign) {
+        result.append(diffSign)
+                .append(key)
+                .append(": ")
+                .append(json.get(key));
     }
 }
