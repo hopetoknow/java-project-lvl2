@@ -28,23 +28,18 @@ public class Differ {
         for (String key: keys) {
             if (!firstJson.containsKey(key)) {
                 appendToResult(secondJson, result, key, PLUS);
+            } else if (!secondJson.containsKey(key)) {
+                appendToResult(firstJson, result, key, MINUS);
+            } else if (firstJson.get(key).equals(secondJson.get(key))) {
+                appendToResult(firstJson, result, key, SPACE);
             } else {
-                if (!secondJson.containsKey(key)) {
-                    appendToResult(firstJson, result, key, MINUS);
-                } else {
-                    if (firstJson.get(key).equals(secondJson.get(key))) {
-                        appendToResult(firstJson, result, key, SPACE);
-                    } else {
-                        appendToResult(firstJson, result, key, MINUS);
-                        result.append("\n");
-                        appendToResult(secondJson, result, key, PLUS);
-                    }
-                }
+                appendToResult(firstJson, result, key, MINUS);
+                result.append("\n");
+                appendToResult(secondJson, result, key, PLUS);
             }
             result.append("\n");
         }
-        result.append("}");
-        return result.toString();
+        return result.append("}").toString();
     }
     private static Map<String, Object> getJsonFromFile(String filePath) throws IOException {
         String jsonAsString = Files.readString(Paths.get(filePath));
