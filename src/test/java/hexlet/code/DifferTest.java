@@ -29,7 +29,7 @@ public class DifferTest {
 
     @Test
     public void generateNegative() throws Exception {
-        String expectedDiff = """
+        String incorrectDiff = """
                 {
                  - follow: false
                  - host: hexlet.io
@@ -40,7 +40,7 @@ public class DifferTest {
                 }""";
 
         String actualDiff = Differ.generate(getPathByFilename("file1.json"), getPathByFilename("file2.json"));
-        assertNotEquals(expectedDiff, actualDiff);
+        assertNotEquals(incorrectDiff, actualDiff);
     }
 
     @Test
