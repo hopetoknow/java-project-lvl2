@@ -7,3 +7,5 @@
 ### Maintainability badge from Code Climate
 [![Maintainability](https://api.codeclimate.com/v1/badges/644d800d4484e158c119/maintainability)](https://codeclimate.com/github/hopetoknow/java-project-lvl2/maintainability)
 
+### Test Coverage badge from Code Climate
+[![Test Coverage](https://api.codeclimate.com/v1/badges/644d800d4484e158c119/test_coverage)](https://codeclimate.com/github/hopetoknow/java-project-lvl2/test_coverage)
