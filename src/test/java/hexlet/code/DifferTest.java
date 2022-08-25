@@ -1,5 +1,6 @@
 package hexlet.code;
 
+import hexlet.code.exceptions.WrongFileFormatException;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
@@ -11,9 +12,7 @@ import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
 public class DifferTest {
 
-    @Test
-    public void generatePositive() throws Exception {
-        String expectedDiff = """
+    private final String expectedDiff = """
                 {
                  - follow: false
                    host: hexlet.io
@@ -23,13 +22,7 @@ public class DifferTest {
                  + verbose: true
                 }""";
 
-        String actualDiff = Differ.generate(getPathByFilename("file1.json"), getPathByFilename("file2.json"));
-        assertEquals(expectedDiff, actualDiff);
-    }
-
-    @Test
-    public void generateNegative() throws Exception {
-        String incorrectDiff = """
+    private final String incorrectDiff = """
                 {
                  - follow: false
                  - host: hexlet.io
@@ -39,7 +32,26 @@ public class DifferTest {
                  - verbose: true
                 }""";
 
+    @Test
+    public void generatePositiveWhenJSON() throws Exception {
         String actualDiff = Differ.generate(getPathByFilename("file1.json"), getPathByFilename("file2.json"));
+        assertEquals(expectedDiff, actualDiff);
+    }
+
+    @Test
+    public void generateNegativeWhenJSON() throws Exception {
+        String actualDiff = Differ.generate(getPathByFilename("file1.json"), getPathByFilename("file2.json"));
+        assertNotEquals(incorrectDiff, actualDiff);
+    }
+    @Test
+    public void generatePositiveWhenYAML() throws Exception {
+        String actualDiff = Differ.generate(getPathByFilename("file1.yml"), getPathByFilename("file2.yml"));
+        assertEquals(expectedDiff, actualDiff);
+    }
+
+    @Test
+    public void generateNegativeWhenYAML() throws Exception {
+        String actualDiff = Differ.generate(getPathByFilename("file1.yml"), getPathByFilename("file2.yml"));
         assertNotEquals(incorrectDiff, actualDiff);
     }
 
@@ -49,6 +61,15 @@ public class DifferTest {
                 Differ.generate(getPathByFilename("file1.json"), getPathByFilename("file2.json") + "42"));
 
         Assertions.assertEquals(getPathByFilename("file2.json") + "42", thrown.getMessage());
+    }
+
+    @Test
+    public void generateWhenWrongFileFormat() {
+        WrongFileFormatException thrown = Assertions.assertThrows(WrongFileFormatException.class, () ->
+                Differ.generate(getPathByFilename("file1.json"), getPathByFilename("file.doc")));
+
+        Assertions.assertEquals("This format file is not supported. Run app with -h to get help.",
+                thrown.getMessage());
     }
 
     private String getPathByFilename(final String name) {
