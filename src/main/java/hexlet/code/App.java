@@ -1,5 +1,6 @@
 package hexlet.code;
 
+import hexlet.code.exceptions.WrongFileFormatException;
 import picocli.CommandLine;
 import picocli.CommandLine.Command;
 import picocli.CommandLine.Option;
@@ -24,8 +25,10 @@ public class App implements Runnable {
     public final void run() {
         try {
             System.out.println(Differ.generate(filepath1, filepath2));
+        } catch (WrongFileFormatException e) {
+            System.out.println(e.getMessage());
         } catch (IOException e) {
-            System.out.println("Something's gone wrong");
+            System.out.println("Incorrect path to the file");
         }
     }
 
