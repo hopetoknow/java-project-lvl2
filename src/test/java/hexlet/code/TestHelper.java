@@ -13,7 +13,7 @@ public class TestHelper {
 
     enum Filenames {
         firstJSONFilename("file1.json"), secondJSONFilename("file2.json"), firstYAMLFilename("file1.yml"),
-        secondYAMLFilename("file2.yml"), wrongFormatFilename("file.doc");
+        secondYAMLFilename("file2.yml"), wrongFormatFilename("file.doc"), emptyJSONFileName("empty.json");
 
         private final String filename;
 
