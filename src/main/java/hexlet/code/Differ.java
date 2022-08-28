@@ -9,9 +9,9 @@ import java.util.TreeSet;
 
 public class Differ {
 
-    private static final String PLUS = " + ";
-    private static final String MINUS = " - ";
-    private static final String SPACE = "   ";
+    private static final String PLUS = "  + ";
+    private static final String MINUS = "  - ";
+    private static final String SPACE = "    ";
 
     public static String generate(String filePath1, String filePath2) throws IOException, WrongFileFormatException {
         Map<String, Object> firstMap = Parser.parse(filePath1);

@@ -14,22 +14,22 @@ public class DifferTest extends TestHelper {
 
     private final String expectedDiff = """
                 {
-                 - follow: false
-                   host: hexlet.io
-                 - proxy: 123.234.53.22
-                 - timeout: 50
-                 + timeout: 20
-                 + verbose: true
+                  - follow: false
+                    host: hexlet.io
+                  - proxy: 123.234.53.22
+                  - timeout: 50
+                  + timeout: 20
+                  + verbose: true
                 }""";
 
     private final String incorrectDiff = """
                 {
-                 - follow: false
-                 - host: hexlet.io
-                 - proxy: 123.234.53.22
-                 - timeout: 50
-                 - timeout: 20
-                 - verbose: true
+                  - follow: false
+                  - host: hexlet.io
+                  - proxy: 123.234.53.22
+                  - timeout: 50
+                  - timeout: 20
+                  - verbose: true
                 }""";
 
     @Test
@@ -64,10 +64,10 @@ public class DifferTest extends TestHelper {
     public void generatePositiveWhenOneFileIsEmpty() throws Exception {
         String expectedDiffWhenOneFileIsEmpty = """
                 {
-                 - follow: false
-                 - host: hexlet.io
-                 - proxy: 123.234.53.22
-                 - timeout: 50
+                  - follow: false
+                  - host: hexlet.io
+                  - proxy: 123.234.53.22
+                  - timeout: 50
                 }""";
         String actualDiff = Differ.generate(getPathByFilename(firstJSONFilename.getFilename()),
                 getPathByFilename(emptyJSONFileName.getFilename()));
