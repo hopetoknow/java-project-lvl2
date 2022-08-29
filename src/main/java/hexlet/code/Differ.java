@@ -3,46 +3,39 @@ package hexlet.code;
 import hexlet.code.exceptions.WrongFileFormatException;
 
 import java.io.IOException;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Set;
+import java.util.TreeMap;
 import java.util.TreeSet;
 
-public class Differ {
+import static hexlet.code.DiffSigns.MINUS;
+import static hexlet.code.DiffSigns.PLUS;
+import static hexlet.code.DiffSigns.SPACE;
 
-    private static final String PLUS = "  + ";
-    private static final String MINUS = "  - ";
-    private static final String SPACE = "    ";
+public class Differ {
 
     public static String generate(String filePath1, String filePath2) throws IOException, WrongFileFormatException {
         Map<String, Object> firstMap = Parser.parse(filePath1);
         Map<String, Object> secondMap = Parser.parse(filePath2);
+        Map<String, List<Object>> diffMap = new TreeMap<>();
 
         Set<String> keys = new TreeSet<>(firstMap.keySet());
         keys.addAll(secondMap.keySet());
 
-        StringBuilder result = new StringBuilder();
-        result.append("{\n");
         for (String key: keys) {
             if (!firstMap.containsKey(key)) {
-                appendToResult(secondMap, result, key, PLUS);
+                diffMap.put(key, Arrays.asList(secondMap.get(key), PLUS));
             } else if (!secondMap.containsKey(key)) {
-                appendToResult(firstMap, result, key, MINUS);
-            } else if (firstMap.get(key).equals(secondMap.get(key))) {
-                appendToResult(firstMap, result, key, SPACE);
+                diffMap.put(key, Arrays.asList(firstMap.get(key), MINUS));
+            } else if (Objects.equals(firstMap.get(key), secondMap.get(key))) {
+                diffMap.put(key, Arrays.asList(firstMap.get(key), SPACE));
             } else {
-                appendToResult(firstMap, result, key, MINUS);
-                result.append("\n");
-                appendToResult(secondMap, result, key, PLUS);
+                diffMap.put(key, Arrays.asList(firstMap.get(key), secondMap.get(key)));
             }
-            result.append("\n");
         }
-        return result.append("}").toString();
-    }
-
-    private static void appendToResult(Map<String, Object> json, StringBuilder result, String key, String diffSign) {
-        result.append(diffSign)
-                .append(key)
-                .append(": ")
-                .append(json.get(key));
+        return StylishFormatter.format(diffMap);
     }
 }
