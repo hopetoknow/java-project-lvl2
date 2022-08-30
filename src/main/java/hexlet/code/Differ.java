@@ -17,7 +17,8 @@ import static hexlet.code.DiffSigns.SPACE;
 
 public class Differ {
 
-    public static String generate(String filePath1, String filePath2) throws IOException, WrongFileFormatException {
+    public static String generate(String filePath1, String filePath2, String formatName) throws IOException,
+            WrongFileFormatException {
         Map<String, Object> firstMap = Parser.parse(filePath1);
         Map<String, Object> secondMap = Parser.parse(filePath2);
         Map<String, List<Object>> diffMap = new TreeMap<>();
@@ -36,6 +37,6 @@ public class Differ {
                 diffMap.put(key, Arrays.asList(firstMap.get(key), secondMap.get(key)));
             }
         }
-        return StylishFormatter.format(diffMap);
+        return Formatter.format(diffMap, formatName);
     }
 }

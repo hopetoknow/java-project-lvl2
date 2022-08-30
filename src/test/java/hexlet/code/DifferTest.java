@@ -49,31 +49,33 @@ public class DifferTest extends TestHelper {
                   - verbose: true
                 }""";
 
+    private final String stylishFormat = "stylish";
+
     @Test
     public void generatePositiveWhenJSON() throws Exception {
         String actualDiff = Differ.generate(getPathByFilename(firstJSONFilename.getFilename()),
-                getPathByFilename(secondJSONFilename.getFilename()));
+                getPathByFilename(secondJSONFilename.getFilename()), stylishFormat);
         assertEquals(expectedDiff, actualDiff);
     }
 
     @Test
     public void generateNegativeWhenJSON() throws Exception {
         String actualDiff = Differ.generate(getPathByFilename(firstJSONFilename.getFilename()),
-                getPathByFilename(secondJSONFilename.getFilename()));
+                getPathByFilename(secondJSONFilename.getFilename()), stylishFormat);
         assertNotEquals(incorrectDiff, actualDiff);
     }
 
     @Test
     public void generatePositiveWhenYAML() throws Exception {
         String actualDiff = Differ.generate(getPathByFilename(firstYAMLFilename.getFilename()),
-                getPathByFilename(secondYAMLFilename.getFilename()));
+                getPathByFilename(secondYAMLFilename.getFilename()), stylishFormat);
         assertEquals(expectedDiff, actualDiff);
     }
 
     @Test
     public void generateNegativeWhenYAML() throws Exception {
         String actualDiff = Differ.generate(getPathByFilename(firstYAMLFilename.getFilename()),
-                getPathByFilename(secondYAMLFilename.getFilename()));
+                getPathByFilename(secondYAMLFilename.getFilename()), stylishFormat);
         assertNotEquals(incorrectDiff, actualDiff);
     }
 
@@ -95,14 +97,14 @@ public class DifferTest extends TestHelper {
                   - setting3: true
                 }""";
         String actualDiff = Differ.generate(getPathByFilename(firstJSONFilename.getFilename()),
-                getPathByFilename(emptyJSONFileName.getFilename()));
+                getPathByFilename(emptyJSONFileName.getFilename()), stylishFormat);
         assertEquals(expectedDiffWhenOneFileIsEmpty, actualDiff);
     }
 
     @Test
     public void generatePositiveWhenBothFilesAreEmpty() throws Exception {
         String actualDiff = Differ.generate(getPathByFilename(emptyJSONFileName.getFilename()),
-                getPathByFilename(emptyJSONFileName.getFilename()));
+                getPathByFilename(emptyJSONFileName.getFilename()), stylishFormat);
         assertEquals("{\n}", actualDiff);
     }
 }

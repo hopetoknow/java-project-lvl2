@@ -25,7 +25,7 @@ public class App implements Runnable {
     @Override
     public final void run() {
         try {
-            System.out.println(Differ.generate(filepath1, filepath2));
+            System.out.println(Differ.generate(filepath1, filepath2, format));
         } catch (WrongFileFormatException e) {
             System.out.println(e.getMessage());
         } catch (IOException e) {
