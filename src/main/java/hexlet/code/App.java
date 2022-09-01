@@ -27,9 +27,9 @@ public class App implements Runnable {
         try {
             System.out.println(Differ.generate(filepath1, filepath2, format));
         } catch (WrongFileFormatException e) {
-            System.out.println(e.getMessage());
+            System.err.println(e.getMessage());
         } catch (IOException e) {
-            System.out.println("Incorrect path to the file");
+            System.err.println("Incorrect path to the file");
         }
     }
 

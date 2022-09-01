@@ -23,6 +23,7 @@ public class StylishFormatterTest extends TestHelper {
                   - setting2: 200
                   - setting3: true
                 }""";
+
     private static final String EXPECTED_STYLISH_DIFF_WHEN_BOTH_FILES_ARE_EMPTY = "{\n}";
 
     @Test

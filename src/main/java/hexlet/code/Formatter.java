@@ -1,5 +1,6 @@
 package hexlet.code;
 
+import hexlet.code.formatters.JSONFormatter;
 import hexlet.code.formatters.PlainFormatter;
 import hexlet.code.formatters.StylishFormatter;
 
@@ -11,6 +12,8 @@ public class Formatter {
     public static String format(Map<String, List<Object>> diffMap, String formatName) {
         if (formatName.equals("plain")) {
             return PlainFormatter.format(diffMap);
+        } else if (formatName.equals("json")) {
+            return JSONFormatter.format(diffMap);
         } else {
             return StylishFormatter.format(diffMap);
         }

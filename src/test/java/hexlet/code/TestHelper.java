@@ -41,6 +41,7 @@ public class TestHelper {
                   - setting3: true
                   + setting3: none
                 }""";
+
     public static final String EXPECTED_PLAIN_DIFF = """
             Property 'chars2' was updated. From [complex value] to false
             Property 'checked' was updated. From false to true
@@ -55,8 +56,18 @@ public class TestHelper {
             Property 'setting1' was updated. From 'Some value' to 'Another value'
             Property 'setting2' was updated. From 200 to 300
             Property 'setting3' was updated. From true to 'none'""";
+
+    public static final String EXPECTED_JSON_DIFF = "{\"chars1\":[[\"a\",\"b\",\"c\"],\"SPACE\"],\"chars2\":"
+            + "[[\"d\",\"e\",\"f\"],false],\"checked\":[false,true],\"default\":[null,[\"value1\",\"value2\"]],\"id\":"
+            + "[45,null],\"key1\":[\"value1\",\"MINUS\"],\"key2\":[\"value2\",\"PLUS\"],\"numbers1\":[[1,2,3,4],"
+            + "\"SPACE\"],\"numbers2\":[[2,3,4,5],[22,33,44,55]],\"numbers3\":[[3,4,5],\"MINUS\"],\"numbers4\":"
+            + "[[4,5,6],\"PLUS\"],\"obj1\":[{\"nestedKey\":\"value\",\"isNested\":true},\"PLUS\"],\"setting1\":"
+            + "[\"Some value\",\"Another value\"],\"setting2\":[200,300],\"setting3\":[true,\"none\"]}";
+
     public static final Map<String, List<Object>> DIFF_MAP = new TreeMap<>();
+
     public static final Map<String, List<Object>> DIFF_MAP_WHEN_SECOND_FILE_IS_EMPTY = new TreeMap<>();
+
     public static final Map<String, List<Object>> DIFF_MAP_WHEN_BOTH_FILES_ARE_EMPTY = new TreeMap<>();
 
     @SuppressWarnings({"magicnumber", "indentation"})
@@ -119,7 +130,7 @@ public class TestHelper {
     }
 
     public enum FormatNames {
-        stylishFormatName("stylish"), plainFormatName("plain");
+        stylishFormatName("stylish"), plainFormatName("plain"), JSONFormatName("json");
         private final String formatName;
 
         FormatNames(String name) {

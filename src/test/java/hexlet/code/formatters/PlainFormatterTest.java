@@ -21,6 +21,7 @@ public class PlainFormatterTest extends TestHelper {
             Property 'setting1' was removed
             Property 'setting2' was removed
             Property 'setting3' was removed""";
+
     private static final String EXPECTED_PLAIN_DIFF_WHEN_BOTH_FILES_ARE_EMPTY = "";
 
     @Test
