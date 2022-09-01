@@ -23,4 +23,18 @@ public class DifferTest extends TestHelper {
                 getPathByFilename(secondYAMLFilename.getFilename()), FormatNames.stylishFormatName.getFilename());
         assertEquals(EXPECTED_STYLISH_DIFF, actualDiff);
     }
+
+    @Test
+    public void generateJSONWhenPlain() throws Exception {
+        String actualDiff = Differ.generate(getPathByFilename(firstJSONFilename.getFilename()),
+                getPathByFilename(secondJSONFilename.getFilename()), FormatNames.plainFormatName.getFilename());
+        assertEquals(EXPECTED_PLAIN_DIFF, actualDiff);
+    }
+
+    @Test
+    public void generateYAMLWhenPlain() throws Exception {
+        String actualDiff = Differ.generate(getPathByFilename(firstYAMLFilename.getFilename()),
+                getPathByFilename(secondYAMLFilename.getFilename()), FormatNames.plainFormatName.getFilename());
+        assertEquals(EXPECTED_PLAIN_DIFF, actualDiff);
+    }
 }

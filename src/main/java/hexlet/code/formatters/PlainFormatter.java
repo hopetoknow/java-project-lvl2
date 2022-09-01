@@ -34,7 +34,8 @@ public class PlainFormatter {
             }
             formattedDiff.append("\n");
         }
-        return formattedDiff.toString();
+        return formattedDiff.length() > 0 ? formattedDiff.substring(0, formattedDiff.length() - 1)
+                : formattedDiff.toString();
     }
 
     private static boolean isPrimitive(Object obj) {

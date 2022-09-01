@@ -1,6 +1,17 @@
 package hexlet.code;
 
+import org.junit.jupiter.api.BeforeAll;
+
 import java.io.File;
+import java.util.Arrays;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.TreeMap;
+
+import static hexlet.code.DiffSigns.MINUS;
+import static hexlet.code.DiffSigns.PLUS;
+import static hexlet.code.DiffSigns.SPACE;
 
 public class TestHelper {
 
@@ -30,6 +41,59 @@ public class TestHelper {
                   - setting3: true
                   + setting3: none
                 }""";
+    public static final String EXPECTED_PLAIN_DIFF = """
+            Property 'chars2' was updated. From [complex value] to false
+            Property 'checked' was updated. From false to true
+            Property 'default' was updated. From null to [complex value]
+            Property 'id' was updated. From 45 to null
+            Property 'key1' was removed
+            Property 'key2' was added with value: 'value2'
+            Property 'numbers2' was updated. From [complex value] to [complex value]
+            Property 'numbers3' was removed
+            Property 'numbers4' was added with value: [complex value]
+            Property 'obj1' was added with value: [complex value]
+            Property 'setting1' was updated. From 'Some value' to 'Another value'
+            Property 'setting2' was updated. From 200 to 300
+            Property 'setting3' was updated. From true to 'none'""";
+    public static final Map<String, List<Object>> DIFF_MAP = new TreeMap<>();
+    public static final Map<String, List<Object>> DIFF_MAP_WHEN_SECOND_FILE_IS_EMPTY = new TreeMap<>();
+    public static final Map<String, List<Object>> DIFF_MAP_WHEN_BOTH_FILES_ARE_EMPTY = new TreeMap<>();
+
+    @SuppressWarnings({"magicnumber", "indentation"})
+    @BeforeAll
+    public static void fillDiffMaps() {
+        DIFF_MAP.put("chars1", Arrays.asList(Arrays.asList("a", "b", "c"), SPACE));
+        DIFF_MAP.put("chars2", Arrays.asList(Arrays.asList("d", "e", "f"), false));
+        DIFF_MAP.put("checked", Arrays.asList(false, true));
+        DIFF_MAP.put("default", Arrays.asList(null, Arrays.asList("value1", "value2")));
+        DIFF_MAP.put("id", Arrays.asList(45, null));
+        DIFF_MAP.put("key1", Arrays.asList("value1", MINUS));
+        DIFF_MAP.put("key2", Arrays.asList("value2", PLUS));
+        DIFF_MAP.put("numbers1", Arrays.asList(Arrays.asList(1, 2, 3, 4), SPACE));
+        DIFF_MAP.put("numbers2", Arrays.asList(Arrays.asList(2, 3, 4, 5), Arrays.asList(22, 33, 44, 55)));
+        DIFF_MAP.put("numbers3", Arrays.asList(Arrays.asList(3, 4, 5), MINUS));
+        DIFF_MAP.put("numbers4", Arrays.asList(Arrays.asList(4, 5, 6), PLUS));
+        DIFF_MAP.put("obj1", Arrays.asList(new LinkedHashMap<>() {{
+            put("nestedKey", "value");
+            put("isNested", true);
+        }}, PLUS));
+        DIFF_MAP.put("setting1", Arrays.asList("Some value", "Another value"));
+        DIFF_MAP.put("setting2", Arrays.asList(200, 300));
+        DIFF_MAP.put("setting3", Arrays.asList(true, "none"));
+
+        DIFF_MAP_WHEN_SECOND_FILE_IS_EMPTY.put("chars1", Arrays.asList(Arrays.asList("a", "b", "c"), MINUS));
+        DIFF_MAP_WHEN_SECOND_FILE_IS_EMPTY.put("chars2", Arrays.asList(Arrays.asList("d", "e", "f"), MINUS));
+        DIFF_MAP_WHEN_SECOND_FILE_IS_EMPTY.put("checked", Arrays.asList(false, MINUS));
+        DIFF_MAP_WHEN_SECOND_FILE_IS_EMPTY.put("default", Arrays.asList(null, MINUS));
+        DIFF_MAP_WHEN_SECOND_FILE_IS_EMPTY.put("id", Arrays.asList(45, MINUS));
+        DIFF_MAP_WHEN_SECOND_FILE_IS_EMPTY.put("key1", Arrays.asList("value1", MINUS));
+        DIFF_MAP_WHEN_SECOND_FILE_IS_EMPTY.put("numbers1", Arrays.asList(Arrays.asList(1, 2, 3, 4), MINUS));
+        DIFF_MAP_WHEN_SECOND_FILE_IS_EMPTY.put("numbers2", Arrays.asList(Arrays.asList(2, 3, 4, 5), MINUS));
+        DIFF_MAP_WHEN_SECOND_FILE_IS_EMPTY.put("numbers3", Arrays.asList(Arrays.asList(3, 4, 5), MINUS));
+        DIFF_MAP_WHEN_SECOND_FILE_IS_EMPTY.put("setting1", Arrays.asList("Some value", MINUS));
+        DIFF_MAP_WHEN_SECOND_FILE_IS_EMPTY.put("setting2", Arrays.asList(200, MINUS));
+        DIFF_MAP_WHEN_SECOND_FILE_IS_EMPTY.put("setting3", Arrays.asList(true, MINUS));
+    }
 
     /**
      * @param name of the file
