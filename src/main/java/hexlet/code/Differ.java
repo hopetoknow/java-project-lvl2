@@ -17,6 +17,8 @@ import static hexlet.code.DiffSigns.SPACE;
 
 public class Differ {
 
+    private static final String STYLISH_FORMAT_NAME = "stylish";
+
     public static String generate(String filePath1, String filePath2, String formatName) throws IOException,
             WrongFileFormatException {
         Map<String, Object> firstMap = Parser.parse(filePath1);
@@ -38,5 +40,10 @@ public class Differ {
             }
         }
         return Formatter.format(diffMap, formatName);
+    }
+
+    public static String generate(String filePath1, String filePath2) throws IOException,
+            WrongFileFormatException {
+        return generate(filePath1, filePath2, STYLISH_FORMAT_NAME);
     }
 }
