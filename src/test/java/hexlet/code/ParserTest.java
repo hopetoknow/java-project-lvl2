@@ -20,19 +20,18 @@ public class ParserTest extends TestHelper {
 
     private static final Map<String, Object> EXPECTED_MAP = new LinkedHashMap<>();
 
-    @SuppressWarnings("magicnumber")
     @BeforeAll
     public static void fillExpectedMap() {
         EXPECTED_MAP.put("setting1", "Some value");
-        EXPECTED_MAP.put("setting2", 200);
+        EXPECTED_MAP.put("setting2", TWO_HUNDRED);
         EXPECTED_MAP.put("setting3", true);
         EXPECTED_MAP.put("key1", "value1");
-        EXPECTED_MAP.put("numbers1", Arrays.asList(1, 2, 3, 4));
-        EXPECTED_MAP.put("numbers2", Arrays.asList(2, 3, 4, 5));
-        EXPECTED_MAP.put("id", 45);
+        EXPECTED_MAP.put("numbers1", Arrays.asList(1, 2, THREE, FOUR));
+        EXPECTED_MAP.put("numbers2", Arrays.asList(2, THREE, FOUR, FIVE));
+        EXPECTED_MAP.put("id", FORTY_FIVE);
         EXPECTED_MAP.put("default", null);
         EXPECTED_MAP.put("checked", false);
-        EXPECTED_MAP.put("numbers3", Arrays.asList(3, 4, 5));
+        EXPECTED_MAP.put("numbers3", Arrays.asList(THREE, FOUR, FIVE));
         EXPECTED_MAP.put("chars1", Arrays.asList("a", "b", "c"));
         EXPECTED_MAP.put("chars2", Arrays.asList("d", "e", "f"));
     }
