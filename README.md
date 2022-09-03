@@ -1,3 +1,14 @@
+# Java Project Lvl2
+Java Project Lvl2 is a CLI application that allows you to compare text differences between two files.
+
+Application features:
+ - Supports various input formats: YAML and JSON
+ - Report generation as plain text, stylish and JSON
+
+I use the picocli framework to easily create a CLI application and
+Gradle as a build automation tool. GitHub Actions acts as a continuous integration (CI) platform.
+The JUnit framework is used to write tests. I also use Make & Makefile for frequently used commands in order to save time.
+
 ### Hexlet tests and linter status:
 [![Actions Status](https://github.com/hopetoknow/java-project-lvl2/workflows/hexlet-check/badge.svg)](https://github.com/hopetoknow/java-project-lvl2/actions)
 
