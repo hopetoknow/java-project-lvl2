@@ -21,6 +21,12 @@ The JUnit framework is used to write tests. I also use Make & Makefile for frequ
 ### Test Coverage badge from Code Climate
 [![Test Coverage](https://api.codeclimate.com/v1/badges/644d800d4484e158c119/test_coverage)](https://codeclimate.com/github/hopetoknow/java-project-lvl2/test_coverage)
 
+## App launch example
+
+![Differ gif](https://raw.githubusercontent.com/hopetoknow/my-gifs/main/GIFs/Differ.gif)
+
+[Asciinema URL](https://asciinema.org/a/h4TTKdvEvwTcYSjtImWkGUDrJ)
+
 ## Install
 ```sh
 make
